@@ -1,0 +1,6 @@
+--DELETE FROM user;
+--
+--INSERT INTO user (userId, username, password, email, authorVerified, lastLogin) VALUES
+--(1, 'John', 'ddaq32323ddssd', 'test1@baomidou.com', FALSE, '12345678'),
+--(2, 'Jack', 'ddaq32323dfssd', 'test2@baomidou.com', FALSE, '12345671'),
+--(3, 'Tom',  'ddaq32323dvssd', 'test3@baomidou.com', FALSE, '12345675');
