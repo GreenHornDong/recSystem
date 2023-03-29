@@ -1,5 +1,6 @@
 package com.recSystem.Controller;
 
+import com.recSystem.Entity.DO.LoginUser;
 import com.recSystem.Entity.DO.User;
 import com.recSystem.Entity.POJO.HttpResponse;
 import com.recSystem.Service.UserServiceImpl;
@@ -26,10 +27,12 @@ public class UserController {
 
     @PostMapping("/login")
     @Operation(summary = "用户登录")
-    public HttpResponse loginUser(@RequestBody User user){
-//        System.out.println(user.getUsername() + user.getPassword());
+    public HttpResponse loginUser(@RequestBody LoginUser user){
 
-        return userServiceImpl.authenticateUser(user);
+        System.out.println(user.getLogin() + user.getPassword());
+        User userEntry = new User(user.getLogin(),user.getPassword());
+
+        return userServiceImpl.authenticateUser(userEntry);
     }
 
     @PostMapping("/info")

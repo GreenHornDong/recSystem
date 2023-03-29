@@ -1,7 +1,7 @@
 package com.recSystem.Entity.DTO;
 
 public class UserDTO {
-    private String login;
+    private String username;
     private String password;
     private int id;
     private String email;
@@ -16,19 +16,19 @@ public class UserDTO {
         this.password = password;
     }
 
-    public UserDTO(String login, int id, String email, Boolean authorVerified) {
-        this.login = login;
+    public UserDTO(String username, int id, String email, Boolean authorVerified) {
+        this.username = username;
         this.id = id;
         this.email = email;
         this.author_verified = authorVerified;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getId() {

@@ -22,18 +22,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private HttpResponse<Object, Object> httpResponse = new HttpResponse<>();
 
     public <T> HttpResponse<StatusDTO, Object> addUser(User user){
-        String token = user.getLogin() + "," + user.getPassword();
+        String token = user.getUsername() + "," + user.getPassword();
         String expireTime = Integer.toString((int) ((System.currentTimeMillis() + 600000)/1000));
         httpResponse.setData(new DataDTO(null, token, expireTime));
         DataDTO data = (DataDTO) httpResponse.getData();
 
 
-        if (user.getLogin() == null || user.getPassword() == null){
+        if (user.getUsername() == null || user.getPassword() == null){
             return new HttpResponse<>(new StatusDTO(20, "用户名或密码不能为空"), null);
         }
-        else if(query().eq("username", user.getLogin()).one() != null){
+        else if(query().eq("username", user.getUsername()).one() != null){
             return new HttpResponse<>(new StatusDTO(21, "用户名已被占用"), null);
-        } else if (user.getLogin().length() >= 16 || user.getLogin().length() < 1){
+        } else if (user.getUsername().length() >= 16 || user.getUsername().length() < 1){
             return new HttpResponse<>(new StatusDTO(22,"用户名长度应在1-16之间"), null);
         }else if (user.getPassword().length() < 8 || user.getPassword().length() > 16){
             return new HttpResponse<>(new StatusDTO(42, "密码格式错误"), null);
@@ -46,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     public <T>HttpResponse<StatusDTO, Object> authenticateUser(User user){
-            String username = user.getLogin();
+            String username = user.getUsername();
             String password = user.getPassword();
             Boolean rememberMe = user.getRememberMe();
             HttpResponse<StatusDTO, String> httpResponse = new HttpResponse<>();
@@ -66,7 +66,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
 
             //判断是否密码正确
-            if (!StringUtils.isEmpty(loginUser.getLogin())) {
+            if (!StringUtils.isEmpty(loginUser.getUsername())) {
                 // 获取该用户在数据库里面的加密过的密码
                 String saltPassword = loginUser.getPassword();
                 // 输入的密码和加密后的密码进行比较
@@ -98,7 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             loginUser.setLastLogin(lastLogin);
             loginUser.setRememberMe(rememberMe);
             saveOrUpdate(loginUser);
-            String token = loginUser.getLogin() + "," + user.getPassword();
+            String token = loginUser.getUsername() + "," + user.getPassword();
             DataDTO data = new DataDTO(token);
             return new HttpResponse<>(new StatusDTO(0, "登录成功"), data);
     }
@@ -124,7 +124,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     public HttpResponse modifyUserInfo(User user){
-        String username = user.getLogin();
+        String username = user.getUsername();
         String email = user.getEmail();
         int userFlag = 0, emailFlag = 0;
         if (username.length() >= 16 || username.length() < 1){
@@ -156,7 +156,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                     .eq("username", username)
                     .one();
             user1.setEmail(user.getEmail());
-            user1.setLogin(user.getLogin());
+            user1.setUsername(user.getUsername());
             saveOrUpdate(user1);
             return new HttpResponse<>(new StatusDTO(0, "用户信息修改成功"), null);
         }

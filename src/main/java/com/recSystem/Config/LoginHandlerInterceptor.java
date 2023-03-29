@@ -24,6 +24,15 @@ public class LoginHandlerInterceptor  implements HandlerInterceptor {
         long startTime = System.currentTimeMillis();
         System.out.println("cdnjd");
         String s = request.getHeader("Authentication");
+        if(s == null) {
+//            System.out.println(request.getContextPath().toString());
+            //拦截住，未登录，则跳转至登录页
+//            request.setAttribute("msg","请先登录");
+//            request.getRequestDispatcher("/").forward(request,response);
+            return false;
+//            response.sendRedirect(request.getContextPath() + "/login");
+//            return false;
+        }
         String[] s1 = s.split(",");
         String username = s1[0];
         String password = s1[1];
@@ -58,7 +67,7 @@ public class LoginHandlerInterceptor  implements HandlerInterceptor {
 //            }
 //
 //        }
-        if (!StringUtils.isEmpty(loginUser.getLogin())) {
+        if (!StringUtils.isEmpty(loginUser.getUsername())) {
                 String saltPassword = loginUser.getPassword();
                 boolean passwordFlag = SaltMD5Util.verifySaltPassword(password, saltPassword);
                 // 如果根据账号查询和校验加密密码失败,则返回错误信息

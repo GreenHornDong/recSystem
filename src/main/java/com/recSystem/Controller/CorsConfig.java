@@ -17,8 +17,10 @@ public class CorsConfig {
         //  你需要跨域的地址  注意这里的 127.0.0.1 != localhost
         // * 表示对所有的地址都可以访问
         corsConfiguration.addAllowedOrigin("http://127.0.0.1:8081");
+        corsConfiguration.addAllowedOrigin("http://localhost:8081");
         //  跨域的请求头
         corsConfiguration.addAllowedHeader("*"); // 2
+
         //  跨域的请求方法
         corsConfiguration.addAllowedMethod("*"); // 3
         //加上了这一句，大致意思是可以携带 cookie
