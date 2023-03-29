@@ -3,11 +3,10 @@ package com.recSystem.Entity.DO;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import nonapi.io.github.classgraph.json.Id;
 
 @Data
 public class User {
-    private String username;
+    private String login;
     @TableId(type = IdType.AUTO)
     private int userId;
     private String email;
@@ -16,8 +15,8 @@ public class User {
     private String password;
     private Boolean rememberMe;
 
-    public User(String username, String password){
-        this.username = username;
+    public User(String login, String password){
+        this.login = login;
         this.password = password;
     }
 }

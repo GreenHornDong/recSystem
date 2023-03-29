@@ -2,10 +2,10 @@ package com.recSystem.Controller;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.recSystem.Entity.DTO.PageDTO;
 import com.recSystem.Entity.POJO.HttpResponse;
 import com.recSystem.Service.PaperServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +16,12 @@ import java.util.HashMap;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class PaperController {
     @Autowired
-    PaperServiceImpl paperService;
+    private PaperServiceImpl paperService;
 
-    @PostMapping("search")
+    @PostMapping("/search")
     @Operation(summary = "查询论文")
-    public HttpResponse searchPaper(@RequestBody HashMap<String, String> map){
-        return paperService.searchPaper(map);
+    public HttpResponse searchPaper(@RequestBody PageDTO pageDTO){
+        return paperService.searchPaper(pageDTO);
     }
 
     @PostMapping("author")

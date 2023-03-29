@@ -21,6 +21,4 @@ public class DataDTO {
     public DataDTO(String token){
         this.token = token;
     }
-
-
 }

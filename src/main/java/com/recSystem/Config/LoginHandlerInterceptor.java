@@ -22,6 +22,7 @@ public class LoginHandlerInterceptor  implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         long startTime = System.currentTimeMillis();
+        System.out.println("cdnjd");
         String s = request.getHeader("Authentication");
         String[] s1 = s.split(",");
         String username = s1[0];
@@ -42,8 +43,22 @@ public class LoginHandlerInterceptor  implements HandlerInterceptor {
             return false;
         }
 
-        if (!StringUtils.isEmpty(loginUser.getUsername())) {
-            if(loginUser.getRememberMe()){
+//        if (!StringUtils.isEmpty(loginUser.getUsername())) {
+//            if(loginUser.getRememberMe()){
+//                String saltPassword = loginUser.getPassword();
+//                boolean passwordFlag = SaltMD5Util.verifySaltPassword(password, saltPassword);
+//                // 如果根据账号查询和校验加密密码失败,则返回错误信息
+//                if (!passwordFlag) {
+//                    response.sendRedirect(request.getContextPath() + "/login");
+//                    return false;
+//                }
+//            } else{
+//                    response.sendRedirect(request.getContextPath() + "/login");
+//                    return false;
+//            }
+//
+//        }
+        if (!StringUtils.isEmpty(loginUser.getLogin())) {
                 String saltPassword = loginUser.getPassword();
                 boolean passwordFlag = SaltMD5Util.verifySaltPassword(password, saltPassword);
                 // 如果根据账号查询和校验加密密码失败,则返回错误信息
@@ -51,11 +66,6 @@ public class LoginHandlerInterceptor  implements HandlerInterceptor {
                     response.sendRedirect(request.getContextPath() + "/login");
                     return false;
                 }
-            } else{
-                    response.sendRedirect(request.getContextPath() + "/login");
-                    return false;
-            }
-
         }
         return true;
     }

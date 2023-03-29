@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -28,12 +27,15 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "用户登录")
     public HttpResponse loginUser(@RequestBody User user){
+//        System.out.println(user.getUsername() + user.getPassword());
+
         return userServiceImpl.authenticateUser(user);
     }
 
     @PostMapping("/info")
     @Operation(summary = "获取用户信息")
     public HttpResponse getUser(@RequestHeader String authentication){
+        System.out.println("cdc");
         return userServiceImpl.getUserInfo(authentication);
     }
 

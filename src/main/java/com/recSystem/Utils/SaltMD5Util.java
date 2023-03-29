@@ -116,7 +116,7 @@ public class SaltMD5Util {
 
     public static void main(String args[]) {
         // 原密码
-        String password = "123456";
+        String password = "1";
         System.out.println("明文(原生)密码：" + password);
         // MD5加密后的密码
         String MD5Password = MD5(password);
